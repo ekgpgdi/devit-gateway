@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+          filters:
+            - RewritePath=/payment/?(?<segment>.*), /$\{segment}
+            #            - CustomAuthFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: payment-service
+                preLogger: true
+                postLogger: true
