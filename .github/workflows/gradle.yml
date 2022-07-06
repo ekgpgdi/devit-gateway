@@ -74,8 +74,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run:
           aws deploy create-deployment 
-          --application-name devitGateway
-          --deployment-group-name devit-gateway
+          --application-name DevitGateway
+          --deployment-group-name gateway-group
           --file-exists-behavior OVERWRITE 
           --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},bundleType=zip,key=gateway.zip 
           --region ap-northeast-2
