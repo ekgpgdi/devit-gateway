@@ -1,31 +1,59 @@
 server:
-  port: 8080
+  port: 8000
 
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://54.180.93.206:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 spring:
   application:
     name: gateway-service
-
   cloud:
     gateway:
       routes:
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
           predicates:
-            - Path=/payment/**
+            - Path=/api/payment/**
           filters:
-            - RewritePath=/payment/?(?<segment>.*), /$\{segment}
-            #            - CustomAuthFilter
+            - RewritePath=/api/payment/?(?<segment>.*), /$\{segment}
+#            - CustomAuthFilter
             - name: LoggingFilter
               args:
                 baseMessage: payment-service
                 preLogger: true
                 postLogger: true
+        - id: certification-service
+          uri: lb://CERTIFICATION-SERVICE
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/?(?<segment>.*), /$\{segment}
+#            - CustomAuthFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: certification-service
+                preLogger: true
+                postLogger: true
+
+app:
+  auth:
+    tokenExpiry: 10800000            # 3시간
+    refreshTokenExpiry: 604800000    # 7일
+
+cors:
+  allowed-origins: http://localhost:8000
+  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+  allowed-headers: \*
+  exposed-headers: Set-Cookie
+  max-age: 3600
+
+security:
+  jjwt:
+    secret: '50g/NGsxw15SwkKw8f+fxuXw6hBrEVYXCgJwyzItp8I='
+    expiration: 3366000
