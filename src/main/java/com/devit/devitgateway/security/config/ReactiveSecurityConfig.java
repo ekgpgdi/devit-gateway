@@ -18,8 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
@@ -101,18 +101,18 @@ public class ReactiveSecurityConfig {
     /**
      * cors 설정
      */
-//    @Bean
-//    CorsConfigurationSource corsConfiguration() {
-//        CorsConfiguration corsConfig = new CorsConfiguration();
-//        corsConfig.applyPermitDefaultValues();
-//        corsConfig.addAllowedMethod(HttpMethod.PUT);
-//        corsConfig.addAllowedMethod(HttpMethod.DELETE);
-//        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING));
-//
-//        UrlBasedCorsConfigurationSource source =
-//                new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfig);
-//        return source;
-//    }
+    @Bean
+    CorsConfigurationSource corsConfiguration() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.applyPermitDefaultValues();
+        corsConfig.addAllowedMethod(HttpMethod.PUT);
+        corsConfig.addAllowedMethod(HttpMethod.DELETE);
+        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING));
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
+        return source;
+    }
 
 }
