@@ -99,7 +99,7 @@ public class ReactiveSecurityConfig {
     }
 
     /**
-     * cors 설정  
+     * cors 설정
      */
     @Bean
     CorsConfigurationSource corsConfiguration() {
