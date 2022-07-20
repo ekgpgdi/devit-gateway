@@ -41,6 +41,18 @@ spring:
                 baseMessage: certification-service
                 preLogger: true
                 postLogger: true
+        - id: board-service
+            uri: lb://BOARD-SERVICE
+            predicates:
+              - Path=/api/boards/**
+            filters:
+              - RewritePath=/api/boards/?(?<segment>.*), /$\{segment}
+              #            - CustomAuthFilter
+              - name: LoggingFilter
+                args:
+                  baseMessage: boards-service
+                  preLogger: true
+                  postLogger: true
 
 app:
   auth:
