@@ -31,7 +31,8 @@ import java.util.Arrays;
 public class ReactiveSecurityConfig {
 
     private static final String FRONTEND_LOCALHOST = "http://localhost:8080";
-    private static final String FRONTEND_STAGING = "https://devit-spring.s3.ap-northeast-2.amazonaws.com";
+    private static final String FRONTEND_STAGING1 = "https://www.devit.shop";
+    private static final String FRONTEND_STAGING2 = "https://devit.shop";
 
     private final ApplicationContext applicationContext;
 
@@ -107,7 +108,7 @@ public class ReactiveSecurityConfig {
         corsConfig.applyPermitDefaultValues();
         corsConfig.addAllowedMethod(HttpMethod.PUT);
         corsConfig.addAllowedMethod(HttpMethod.DELETE);
-        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING));
+        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
