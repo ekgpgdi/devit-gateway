@@ -26,25 +26,25 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Bean
-    public WebFilter corsFilter() {
-        return (ServerWebExchange ctx, WebFilterChain chain) -> {
-            ServerHttpRequest request = ctx.getRequest();
-            if (CorsUtils.isPreFlightRequest(request)) {
-                ServerHttpResponse response = ctx.getResponse();
-                HttpHeaders headers = response.getHeaders();
-                headers.add("Access-Control-Allow-Origin", "https://www.devit.shop");
-                headers.add("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-                headers.add("Access-Control-Max-Age", "3600");
-                headers.add("Access-Control-Allow-Headers", "*");
-                headers.add("Access-Control-Allow-Credentials", "true");
-
-                if (request.getMethod() == HttpMethod.OPTIONS) {
-                    response.setStatusCode(HttpStatus.OK);
-                    return Mono.empty();
-                }
-            }
-            return chain.filter(ctx);
-        };
-    }
+//    @Bean
+//    public WebFilter corsFilter() {
+//        return (ServerWebExchange ctx, WebFilterChain chain) -> {
+//            ServerHttpRequest request = ctx.getRequest();
+//            if (CorsUtils.isPreFlightRequest(request)) {
+//                ServerHttpResponse response = ctx.getResponse();
+//                HttpHeaders headers = response.getHeaders();
+//                headers.add("Access-Control-Allow-Origin", "https://www.devit.shop");
+//                headers.add("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+//                headers.add("Access-Control-Max-Age", "3600");
+//                headers.add("Access-Control-Allow-Headers", "*");
+//                headers.add("Access-Control-Allow-Credentials", "true");
+//
+//                if (request.getMethod() == HttpMethod.OPTIONS) {
+//                    response.setStatusCode(HttpStatus.OK);
+//                    return Mono.empty();
+//                }
+//            }
+//            return chain.filter(ctx);
+//        };
+//    }
 }
