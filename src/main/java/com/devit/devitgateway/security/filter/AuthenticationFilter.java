@@ -26,7 +26,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     private final static String HEADER_AUTHORIZATION = "Authorization";
     private final static String TOKEN_PREFIX = "Bearer ";
-    @Value("${jwt.secret}")
+    @Value("${security.jjwt.secret}")
     private String secret;
 
     public AuthenticationFilter() {
