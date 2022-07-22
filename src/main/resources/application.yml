@@ -60,7 +60,7 @@ spring:
             - Path=/api/boards/**
           filters:
             - RewritePath=/api/boards/?(?<segment>.*), /$\{segment}
-            #            - CustomAuthFilter
+            - CustomAuthFilter
             - name: LoggingFilter
               args:
                 baseMessage: boards-service
