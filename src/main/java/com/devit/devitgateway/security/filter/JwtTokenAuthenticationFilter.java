@@ -33,19 +33,19 @@ public class JwtTokenAuthenticationFilter implements WebFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    @Bean
-    CorsWebFilter corsWebFilter() {
-        CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOriginPatterns(List.of("*"));
-        corsConfig.setMaxAge(8000L);
-        corsConfig.addAllowedMethod("*");
-        corsConfig.addAllowedHeader("*");
-        corsConfig.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-        return new CorsWebFilter((CorsConfigurationSource) source);
-    }
+//    @Bean
+//    CorsWebFilter corsWebFilter() {
+//        CorsConfiguration corsConfig = new CorsConfiguration();
+//        corsConfig.setAllowedOriginPatterns(List.of("*"));
+//        corsConfig.setMaxAge(8000L);
+//        corsConfig.addAllowedMethod("*");
+//        corsConfig.addAllowedHeader("*");
+//        corsConfig.setAllowCredentials(true);
+//        UrlBasedCorsConfigurationSource source =
+//                new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfig);
+//        return new CorsWebFilter((CorsConfigurationSource) source);
+//    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
