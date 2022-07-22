@@ -18,6 +18,8 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +30,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class JwtTokenAuthenticationFilter implements WebFilter {
+public class JwtTokenAuthenticationFilter implements WebFilter, Filter {
     public static final String HEADER_PREFIX = "Bearer ";
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -65,5 +67,20 @@ public class JwtTokenAuthenticationFilter implements WebFilter {
             return bearerToken.substring(7);
         }
         return null;
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
