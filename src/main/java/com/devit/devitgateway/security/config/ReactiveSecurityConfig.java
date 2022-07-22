@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableReactiveMethodSecurity
+//@EnableReactiveMethodSecurity
 public class ReactiveSecurityConfig {
 
     private static final String FRONTEND_LOCALHOST = "http://localhost:8080";
@@ -51,59 +51,59 @@ public class ReactiveSecurityConfig {
      * @param http
      * @return
      */
-    @Bean
-    @DependsOn({"methodSecurityExpressionHandler"})
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http,
-                                                         JwtTokenProvider jwtTokenProvider) {
-        DefaultMethodSecurityExpressionHandler defaultWebSecurityExpressionHandler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
-        defaultWebSecurityExpressionHandler.setPermissionEvaluator(myPermissionEvaluator());
-        return http
-                .cors()
-//                .cors().configurationSource(corsConfigurationSource())
-                .and()
-                .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
-                        .authenticationEntryPoint((exchange, ex) -> {
-                            return Mono.fromRunnable(() -> {
-                                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-                            });
-                        })
-                        .accessDeniedHandler((exchange, denied) -> {
-                            return Mono.fromRunnable(() -> {
-                                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-                            });
-                        }))
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .authorizeExchange(exchange -> exchange
-                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                        .pathMatchers("/api/auth/**").permitAll()
-                        .anyExchange().authenticated()
-                )
-                .addFilterAt(new JwtTokenAuthenticationFilter(jwtTokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)
-                .build();
-    }
+//    @Bean
+//    @DependsOn({"methodSecurityExpressionHandler"})
+//    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http,
+//                                                         JwtTokenProvider jwtTokenProvider) {
+//        DefaultMethodSecurityExpressionHandler defaultWebSecurityExpressionHandler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
+//        defaultWebSecurityExpressionHandler.setPermissionEvaluator(myPermissionEvaluator());
+//        return http
+//                .cors()
+////                .cors().configurationSource(corsConfigurationSource())
+//                .and()
+//                .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
+//                        .authenticationEntryPoint((exchange, ex) -> {
+//                            return Mono.fromRunnable(() -> {
+//                                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+//                            });
+//                        })
+//                        .accessDeniedHandler((exchange, denied) -> {
+//                            return Mono.fromRunnable(() -> {
+//                                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+//                            });
+//                        }))
+//                .csrf().disable()
+//                .formLogin().disable()
+//                .httpBasic().disable()
+//                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+//                .authorizeExchange(exchange -> exchange
+//                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+//                        .pathMatchers(HttpMethod.OPTIONS).permitAll()
+//                        .pathMatchers("/api/auth/**").permitAll()
+//                        .anyExchange().authenticated()
+//                )
+//                .addFilterAt(new JwtTokenAuthenticationFilter(jwtTokenProvider), SecurityWebFiltersOrder.HTTP_BASIC)
+//                .build();
+//    }
 
-    @Bean
-    public PermissionEvaluator myPermissionEvaluator() {
-        return new PermissionEvaluator() {
-            @Override
-            public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
-                if(authentication.getAuthorities().stream()
-                        .filter(grantedAuthority -> grantedAuthority.getAuthority().equals(targetDomainObject))
-                        .count() > 0)
-                    return true;
-                return false;
-            }
-
-            @Override
-            public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
-                return false;
-            }
-        };
-    }
+//    @Bean
+//    public PermissionEvaluator myPermissionEvaluator() {
+//        return new PermissionEvaluator() {
+//            @Override
+//            public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
+//                if(authentication.getAuthorities().stream()
+//                        .filter(grantedAuthority -> grantedAuthority.getAuthority().equals(targetDomainObject))
+//                        .count() > 0)
+//                    return true;
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
+//                return false;
+//            }
+//        };
+//    }
 
     /*
      * Cors 설정
