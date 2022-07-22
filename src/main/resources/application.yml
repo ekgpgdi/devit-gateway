@@ -14,14 +14,14 @@ eureka:
 spring:
 #  main:
 #    allow-bean-definition-overriding: true
-  mvc:
-    dispatch-options-request: true
+#  mvc:
+#    dispatch-options-request: true
   application:
     name: gateway-service
   cloud:
     gateway:
-#      globalcors:
-#        add-to-simple-url-handler-mapping: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
 #        corsConfigurations:
 #          '[/**]':
 #            allowedOrigins: "https://www.devit.shop"
