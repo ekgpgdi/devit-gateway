@@ -3,25 +3,15 @@ package com.devit.devitgateway.security.filter;
 import com.devit.devitgateway.security.token.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.util.StringUtils;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.cors.reactive.CorsConfigurationSource;
-import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
-
-import javax.servlet.*;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * JWT 토큰이 http request header에 있는지 확인하기 위한 필터
@@ -30,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class JwtTokenAuthenticationFilter implements WebFilter, Filter {
+public class JwtTokenAuthenticationFilter implements WebFilter {
     public static final String HEADER_PREFIX = "Bearer ";
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -67,20 +57,5 @@ public class JwtTokenAuthenticationFilter implements WebFilter, Filter {
             return bearerToken.substring(7);
         }
         return null;
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }
