@@ -20,7 +20,7 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOriginPatterns: "*"
+            allowedOrigins: https://www.devit.shop
             allow-credentials: true
             allowedHeaders: "*"
             allowedMethods:
