@@ -22,19 +22,19 @@ spring:
     gateway:
       globalcors:
         add-to-simple-url-handler-mapping: true
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: "https://www.devit.shop"
-#            allowCredentials: true
-#            allowedHeaders: "*"
-#            allowedMethods:
-#              - GET
-#              - POST
-#              - DELETE
-#              - PUT
-#              - OPTIONS
-#              - PATCH
-#            maxAge: 86400
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "https://www.devit.shop"
+            allowCredentials: true
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+              - PATCH
+            maxAge: 86400
       routes:
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
