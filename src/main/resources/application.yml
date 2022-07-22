@@ -16,19 +16,19 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-#      globalcors:
-#        cors-configurations:
-#          '[/**]':
-#            allowedOriginPatterns: "*"
-#            allow-credentials: true
-#            allowedHeaders: "*"
-#            allowedMethods:
-#              - GET
-#              - POST
-#              - DELETE
-#              - PUT
-#              - OPTIONS
-#            maxAge: 86400
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allow-credentials: true
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+            maxAge: 86400
       routes:
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
