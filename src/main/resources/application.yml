@@ -25,7 +25,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "https://www.devit.shop"
-            allow-credentials: true
+            allowCredentials: true
             allowedHeaders: "*"
             allowedMethods:
               - GET
