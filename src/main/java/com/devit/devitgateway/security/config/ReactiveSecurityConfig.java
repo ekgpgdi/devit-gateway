@@ -118,7 +118,7 @@ public class ReactiveSecurityConfig {
 //        corsConfig.addAllowedMethod(HttpMethod.POST);
 //        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
 
-        corsConfig.setAllowedOrigins(List.of("*"));
+        corsConfig.setAllowedOriginPatterns(List.of("*"));
         corsConfig.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
         corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
         corsConfig.setAllowCredentials(true);
