@@ -121,7 +121,7 @@ public class ReactiveSecurityConfig {
 
         corsConfig.setAllowedOriginPatterns(List.of("*"));
         corsConfig.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        corsConfig.setAllowedHeaders(List.of("*"));
         corsConfig.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
