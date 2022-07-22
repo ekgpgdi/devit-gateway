@@ -29,6 +29,8 @@ public class CorsConfig {
         corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
         corsConfig.addAllowedMethod(HttpMethod.POST);
 
+        corsConfig.setMaxAge(3600L);
+
         corsConfig.addAllowedHeader("*");
         corsConfig.setAllowCredentials(true);
         corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));

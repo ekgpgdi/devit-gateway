@@ -36,7 +36,7 @@ spring:
             - Path=/api/payment/**
           filters:
             - RewritePath=/api/payment/?(?<segment>.*), /$\{segment}
-#            - CustomAuthFilter
+            - CustomAuthFilter
             - name: LoggingFilter
               args:
                 baseMessage: payment-service
