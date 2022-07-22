@@ -35,6 +35,8 @@ public class ReactiveSecurityConfig {
     private static final String FRONTEND_STAGING1 = "https://www.devit.shop";
     private static final String FRONTEND_STAGING2 = "https://devit.shop";
 
+    private final CorsProperties corsProperties;
+
     private final ApplicationContext applicationContext;
 
     /**
@@ -57,7 +59,8 @@ public class ReactiveSecurityConfig {
         DefaultMethodSecurityExpressionHandler defaultWebSecurityExpressionHandler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
         defaultWebSecurityExpressionHandler.setPermissionEvaluator(myPermissionEvaluator());
         return http
-                .cors().configurationSource(corsConfiguration())
+                .cors()
+//                .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
                         .authenticationEntryPoint((exchange, ex) -> {
@@ -102,32 +105,22 @@ public class ReactiveSecurityConfig {
         };
     }
 
-    /**
-     * cors 설정
-     */
+    /*
+     * Cors 설정
+     * */
     @Bean
-    CorsConfigurationSource corsConfiguration() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.applyPermitDefaultValues();
-//
-//        corsConfig.setAllowedOrigins(List.of("https://www.devit.shop"));
-
-//        corsConfig.addAllowedMethod(HttpMethod.PUT);
-//        corsConfig.addAllowedMethod(HttpMethod.DELETE);
-//        corsConfig.addAllowedMethod(HttpMethod.GET);
-//        corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
-//        corsConfig.addAllowedMethod(HttpMethod.POST);
-        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
-
-//        corsConfig.setAllowedOriginPatterns(List.of("*"));
-        corsConfig.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfig.setAllowedHeaders(List.of("*"));
+        corsConfig.setAllowedHeaders(Arrays.asList(corsProperties.getAllowedHeaders().split(",")));
+        corsConfig.setAllowedMethods(Arrays.asList(corsProperties.getAllowedMethods().split(",")));
+        corsConfig.setAllowedOrigins(Arrays.asList(corsProperties.getAllowedOrigins().split(",")));
+        corsConfig.setExposedHeaders(Arrays.asList(corsProperties.getExposedHeaders().split(",")));
         corsConfig.setAllowCredentials(true);
+        corsConfig.setMaxAge(corsConfig.getMaxAge());
 
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-        return source;
+        UrlBasedCorsConfigurationSource corsConfigSource = new UrlBasedCorsConfigurationSource();
+        corsConfigSource.registerCorsConfiguration("/**", corsConfig);
+        return corsConfigSource;
     }
 
 
