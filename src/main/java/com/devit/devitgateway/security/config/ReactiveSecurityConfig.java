@@ -24,6 +24,8 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -56,7 +58,7 @@ public class ReactiveSecurityConfig {
         DefaultMethodSecurityExpressionHandler defaultWebSecurityExpressionHandler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
         defaultWebSecurityExpressionHandler.setPermissionEvaluator(myPermissionEvaluator());
         return http
-                .cors().configurationSource(corsConfigurationSource())
+                .cors().configurationSource(corsConfiguration())
                 .and()
                 .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
                         .authenticationEntryPoint((exchange, ex) -> {
@@ -101,51 +103,34 @@ public class ReactiveSecurityConfig {
         };
     }
 
-//    /**
-//     * cors 설정
-//     */
-//    @Bean
-//    CorsConfigurationSource corsConfiguration() {
-//        CorsConfiguration corsConfig = new CorsConfiguration();
-//        corsConfig.applyPermitDefaultValues();
-////
-////        corsConfig.setAllowedOrigins(List.of("https://www.devit.shop"));
-//
-////        corsConfig.addAllowedMethod(HttpMethod.PUT);
-////        corsConfig.addAllowedMethod(HttpMethod.DELETE);
-////        corsConfig.addAllowedMethod(HttpMethod.GET);
-////        corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
-////        corsConfig.addAllowedMethod(HttpMethod.POST);
-//        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
-//
-////        corsConfig.setAllowedOriginPatterns(List.of("*"));
-//        corsConfig.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        corsConfig.setAllowedHeaders(List.of("*"));
-//        corsConfig.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source =
-//                new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfig);
-//        return source;
-//    }
-
+    /**
+     * cors 설정
+     */
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedHeader("*");
-        corsConfiguration.addAllowedOriginPattern("*");
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.setMaxAge(3600L);
-        corsConfiguration.setAllowCredentials(true);
-        source.registerCorsConfiguration("/**", corsConfiguration);
+    CorsConfigurationSource corsConfiguration() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.applyPermitDefaultValues();
+//
+//        corsConfig.setAllowedOrigins(List.of("https://www.devit.shop"));
+
+//        corsConfig.addAllowedMethod(HttpMethod.PUT);
+//        corsConfig.addAllowedMethod(HttpMethod.DELETE);
+//        corsConfig.addAllowedMethod(HttpMethod.GET);
+//        corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
+//        corsConfig.addAllowedMethod(HttpMethod.POST);
+        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
+
+//        corsConfig.setAllowedOriginPatterns(List.of("*"));
+        corsConfig.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfig.setAllowedHeaders(List.of("*"));
+        corsConfig.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
         return source;
     }
 
-//    @Bean
-//    public CorsWebFilter corsWebFilter() {
-//        return new CorsWebFilter(corsConfigurationSource());
-//    }
 
 }
 
