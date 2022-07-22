@@ -122,14 +122,12 @@
 //        corsConfig.setAllowedOrigins(Arrays.asList(corsProperties.getAllowedOrigins().split(",")));
 //        corsConfig.setExposedHeaders(Arrays.asList(corsProperties.getExposedHeaders().split(",")));
 //        corsConfig.setAllowCredentials(true);
-//        corsConfig.
 //        corsConfig.setMaxAge(corsConfig.getMaxAge());
 //
 //        UrlBasedCorsConfigurationSource corsConfigSource = new UrlBasedCorsConfigurationSource();
 //        corsConfigSource.registerCorsConfiguration("/**", corsConfig);
 //        return corsConfigSource;
 //    }
-//
 //
 //}
 //
