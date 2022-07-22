@@ -1,30 +1,30 @@
-package com.devit.devitgateway.security.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.web.cors.reactive.CorsUtils;
-import org.springframework.web.server.ServerWebExchange;
-import org.springframework.web.server.WebFilter;
-import org.springframework.web.server.WebFilterChain;
-import reactor.core.publisher.Mono;
-
-@EnableWebFluxSecurity
-public class SecurityConfig {
-
-    @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-
-        return http.csrf()
-                .disable()
-                .build();
-    }
+//package com.devit.devitgateway.security.config;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.HttpMethod;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.server.reactive.ServerHttpRequest;
+//import org.springframework.http.server.reactive.ServerHttpResponse;
+//import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+//import org.springframework.security.config.web.server.ServerHttpSecurity;
+//import org.springframework.security.web.server.SecurityWebFilterChain;
+//import org.springframework.web.cors.reactive.CorsUtils;
+//import org.springframework.web.server.ServerWebExchange;
+//import org.springframework.web.server.WebFilter;
+//import org.springframework.web.server.WebFilterChain;
+//import reactor.core.publisher.Mono;
+//
+//@EnableWebFluxSecurity
+//public class SecurityConfig {
+//
+//    @Bean
+//    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+//
+//        return http.csrf()
+//                .disable()
+//                .build();
+//    }
 
 //    @Bean
 //    public WebFilter corsFilter() {
@@ -47,4 +47,4 @@ public class SecurityConfig {
 //            return chain.filter(ctx);
 //        };
 //    }
-}
+//}
