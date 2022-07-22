@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import reactor.core.publisher.Mono;
@@ -74,7 +75,7 @@ public class ReactiveSecurityConfig {
                 .httpBasic().disable()
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .pathMatchers("/api/auth/**").permitAll()
                         .anyExchange().authenticated()
                 )
