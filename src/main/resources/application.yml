@@ -3,7 +3,8 @@ server:
 
 logging:
   level:
-    root: info
+    org.springframework.cloud.gateway: trace
+    reactor.netty: trace
 
 eureka:
   client:
@@ -24,8 +25,13 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      httpclient:
+        wiretap: true
+        connect-timeout: 3000
+        response-timeout: 7s
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
+        - DedupeResponseHeader=access-control-allow-origin access-control-allow-credentials access-control-allow-headers access-control-allow-methods access-control-max-age, RETAIN_LAST
+        - AddResponseHeader=Cache-control, no-cache
       globalcors:
         cors-configurations:
           '[/**]':
@@ -49,6 +55,7 @@ spring:
               - "X-IBM-CLIENT-ID"
               - "Message-ID"
               - "X-IBM-CLIENT-SECRET"
+            maxAge: 86400
         add-to-simple-url-handler-mapping: true
       routes:
         - id: payment-service
