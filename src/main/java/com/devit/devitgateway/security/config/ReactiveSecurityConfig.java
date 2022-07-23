@@ -106,6 +106,9 @@ public class ReactiveSecurityConfig {
         corsConfig.applyPermitDefaultValues();
         corsConfig.addAllowedMethod(HttpMethod.PUT);
         corsConfig.addAllowedMethod(HttpMethod.DELETE);
+        corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
+        corsConfig.setAllowCredentials(true);
+        corsConfig.addAllowedHeader("*");
         corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
 
         UrlBasedCorsConfigurationSource source =
