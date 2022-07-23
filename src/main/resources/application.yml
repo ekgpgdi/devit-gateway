@@ -57,7 +57,7 @@ spring:
             - Path=/api/payment/**
           filters:
             - RewritePath=/api/payment/?(?<segment>.*), /$\{segment}
-            - AuthenticationFilter
+#            - AuthenticationFilter
             - name: LoggingFilter
               args:
                 baseMessage: payment-service
@@ -81,7 +81,7 @@ spring:
             - Path=/api/boards/**
           filters:
             - RewritePath=/api/boards/?(?<segment>.*), /$\{segment}
-            - AuthenticationFilter
+#            - AuthenticationFilter
             - name: LoggingFilter
               args:
                 baseMessage: boards-service

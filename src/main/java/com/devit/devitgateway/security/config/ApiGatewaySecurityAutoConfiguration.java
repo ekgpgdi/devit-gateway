@@ -1,6 +1,8 @@
 package com.devit.devitgateway.security.config;
 
 import com.devit.devitgateway.security.filter.JwtTokenAuthenticationFilter;
+import com.devit.devitgateway.security.token.JwtTokenProvider;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,21 +29,23 @@ import javax.annotation.PostConstruct;
 @EnableWebFluxSecurity
 @Slf4j
 @EnableConfigurationProperties(value = {GlobalCorsProperties.class})
+@RequiredArgsConstructor
 public class ApiGatewaySecurityAutoConfiguration {
 
     @Bean
     public SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http,
-                                                       @Value("${security.jjwt.secret}") String secret) {
+                                                       @Value("${security.jjwt.secret}") String secret,
+                                                       JwtTokenProvider jwtTokenProvider) {
         log.info("Configuring SecurityWebFilterChain");
         return http.securityMatcher(new NegatedServerWebExchangeMatcher(
                         ServerWebExchangeMatchers.pathMatchers(
                                 "/excluded/paths/**")))
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
-//                .logout(logout -> logout
-//                        .requiresLogout(new PathPatternParserServerWebExchangeMatcher("**/logout")))
+                .logout(logout -> logout
+                        .requiresLogout(new PathPatternParserServerWebExchangeMatcher("**/logout")))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-//                .addFilterAt(JwtTokenAuthenticationFilter, SecurityWebFiltersOrder.AUTHORIZATION)
+                .addFilterAt(new JwtTokenAuthenticationFilter(jwtTokenProvider), SecurityWebFiltersOrder.AUTHORIZATION)
                 .cors()
                 .and()
                 .build();
