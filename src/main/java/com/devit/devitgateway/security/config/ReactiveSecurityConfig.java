@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -57,7 +58,7 @@ public class ReactiveSecurityConfig {
         DefaultMethodSecurityExpressionHandler defaultWebSecurityExpressionHandler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
         defaultWebSecurityExpressionHandler.setPermissionEvaluator(myPermissionEvaluator());
         return http
-                .cors()
+                .cors().configurationSource(urlBasedCorsConfigurationSource())
                 .and()
                 .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
                         .authenticationEntryPoint((exchange, ex) -> {
@@ -118,6 +119,18 @@ public class ReactiveSecurityConfig {
 //        source.registerCorsConfiguration("/**", corsConfig);
 //        return source;
 //    }
+
+    private UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.applyPermitDefaultValues();
+        // corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("*"));
+        corsConfiguration.setAllowedOrigins(List.of("*"));
+        UrlBasedCorsConfigurationSource ccs = new UrlBasedCorsConfigurationSource();
+        ccs.registerCorsConfiguration("/**", corsConfiguration);
+        return ccs;
+    }
 
 
 }
