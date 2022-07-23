@@ -16,31 +16,40 @@ eureka:
     prefer-ip-address: true
 
 spring:
-#  main:
-#    allow-bean-definition-overriding: true
-#  mvc:
-#    dispatch-options-request: true
+  #  main:
+  #    allow-bean-definition-overriding: true
+  #  mvc:
+  #    dispatch-options-request: true
   application:
     name: gateway-service
   cloud:
     gateway:
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_FIRST
       globalcors:
-        add-to-simple-url-handler-mapping: true
-        corsConfigurations:
+        cors-configurations:
           '[/**]':
-            allowedOrigins: "https://www.devit.shop"
-            allow-credentials: true
-            allowedHeaders: /*
-            allowedMethods:
-              - GET
-              - POST
-              - DELETE
-              - PUT
-              - OPTIONS
-              - PATCH
-            maxAge: 86400
+            allowed-origins: '*'
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "PUT"
+              - "DELETE"
+              - "HEAD"
+              - "OPTIONS"
+            allowed-headers:
+              - "Origin"
+              - "Content-Type"
+              - "Accept"
+              - "Authorization"
+              - "User-Key"
+              - "Request-Tracker"
+              - "Session-Tracker"
+              - "X-XSRF-TOKEN"
+              - "X-IBM-CLIENT-ID"
+              - "Message-ID"
+              - "X-IBM-CLIENT-SECRET"
+        add-to-simple-url-handler-mapping: true
       routes:
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
@@ -60,7 +69,7 @@ spring:
             - Path=/api/auth/**
           filters:
             - RewritePath=/api/auth/?(?<segment>.*), /$\{segment}
-#           - CustomAuthFilter
+            #           - CustomAuthFilter
             - name: LoggingFilter
               args:
                 baseMessage: certification-service
