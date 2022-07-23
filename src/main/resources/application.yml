@@ -4,7 +4,7 @@ server:
 logging:
   level:
     root: info
-    
+
 eureka:
   client:
     fetch-registry: true
