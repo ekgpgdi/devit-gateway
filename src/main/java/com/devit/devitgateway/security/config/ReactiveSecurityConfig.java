@@ -57,6 +57,8 @@ public class ReactiveSecurityConfig {
         DefaultMethodSecurityExpressionHandler defaultWebSecurityExpressionHandler = this.applicationContext.getBean(DefaultMethodSecurityExpressionHandler.class);
         defaultWebSecurityExpressionHandler.setPermissionEvaluator(myPermissionEvaluator());
         return http
+                .cors()
+                .and()
                 .exceptionHandling(exceptionHandlingSpec -> exceptionHandlingSpec
                         .authenticationEntryPoint((exchange, ex) -> {
                             return Mono.fromRunnable(() -> {
@@ -100,22 +102,22 @@ public class ReactiveSecurityConfig {
         };
     }
 
-    @Bean
-    CorsConfigurationSource corsConfiguration() {
-        CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.applyPermitDefaultValues();
-        corsConfig.addAllowedMethod(HttpMethod.PUT);
-        corsConfig.addAllowedMethod(HttpMethod.DELETE);
-        corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
-        corsConfig.setAllowCredentials(true);
-        corsConfig.addAllowedHeader("*");
-        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
-
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfig);
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfiguration() {
+//        CorsConfiguration corsConfig = new CorsConfiguration();
+//        corsConfig.applyPermitDefaultValues();
+//        corsConfig.addAllowedMethod(HttpMethod.PUT);
+//        corsConfig.addAllowedMethod(HttpMethod.DELETE);
+//        corsConfig.addAllowedMethod(HttpMethod.OPTIONS);
+//        corsConfig.setAllowCredentials(true);
+//        corsConfig.addAllowedHeader("*");
+//        corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
+//
+//        UrlBasedCorsConfigurationSource source =
+//                new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfig);
+//        return source;
+//    }
 
 
 }
