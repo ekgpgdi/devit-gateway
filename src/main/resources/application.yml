@@ -94,30 +94,30 @@ spring:
                 baseMessage: boards-service
                 preLogger: true
                 postLogger: true
-#        - id: user-service
-#          uri: lb://USER-SERVICE
-#          predicates:
-#            - Path=/api/users/**
-#          filters:
-#            - RewritePath=/api/users/?(?<segment>.*), /$\{segment}
-#            #            - CustomAuthFilter
-#            - name: LoggingFilter
-#              args:
-#                baseMessage: user-service
-#                preLogger: true
-#                postLogger: true
-#        - id: chat-service
-#          uri: lb://CHAT-SERVICE
-#          predicates:
-#            - Path=/api/chats/**
-#          filters:
-#            - RewritePath=/api/chats/?(?<segment>.*), /$\{segment}
-#            #            - CustomAuthFilter
-#            - name: LoggingFilter
-#              args:
-#                baseMessage: chat-service
-#                preLogger: true
-#                postLogger: true
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - RewritePath=/api/users/?(?<segment>.*), /$\{segment}
+            #            - CustomAuthFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: user-service
+                preLogger: true
+                postLogger: true
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/api/chats/**
+          filters:
+            - RewritePath=/api/chats/?(?<segment>.*), /$\{segment}
+            #            - CustomAuthFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: chat-service
+                preLogger: true
+                postLogger: true
 
 app:
   auth:
