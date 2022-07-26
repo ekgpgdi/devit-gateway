@@ -104,8 +104,10 @@ public class ReactiveSecurityConfig {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
         corsConfig.applyPermitDefaultValues();
+        corsConfig.addAllowedHeader("*");
         corsConfig.addAllowedMethod(HttpMethod.PUT);
         corsConfig.addAllowedMethod(HttpMethod.DELETE);
+        corsConfig.addExposedHeader("Set-Cookie");
         corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING));
         corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
 
