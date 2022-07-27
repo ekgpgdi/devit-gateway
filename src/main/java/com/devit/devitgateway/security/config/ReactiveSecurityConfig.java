@@ -107,6 +107,7 @@ public class ReactiveSecurityConfig {
         corsConfig.addAllowedHeader("*");
         corsConfig.addAllowedMethod(HttpMethod.PUT);
         corsConfig.addAllowedMethod(HttpMethod.DELETE);
+        corsConfig.addExposedHeader("set-cookie");
         corsConfig.addExposedHeader("Set-Cookie");
         corsConfig.setMaxAge(3600L);
         corsConfig.setAllowedOrigins(Arrays.asList(FRONTEND_LOCALHOST, FRONTEND_STAGING1, FRONTEND_STAGING2));
